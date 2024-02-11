@@ -1,16 +1,42 @@
+document.addEventListener('DOMContentLoaded', function () {
+  const toggler = document.querySelector('.toggler');
+  const navMenu = document.querySelector('.nav-links');
+  const responsiveLinks = document.querySelector('.responsive-links');
 
-const toggler = document.querySelector(".toggler");
-const navMenu = document.querySelector("#navMenu");
+  toggler.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    responsiveLinks.style.display = (responsiveLinks.style.display === 'flex') ? 'none' : 'flex';
+  });
 
-toggler.addEventListener('click', function () {
-    navMenu.classList.toggle("active")
+  // Evitamos que el clic en el botón propague el evento y cierre el menú
+  toggler.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
+  // Agregamos un listener para cerrar el menú si se hace clic fuera de él
+  document.addEventListener('click', (event) => {
+    if (!event.target.matches('.toggler') && !event.target.closest('.nav-links') && !event.target.matches('.responsive-links')) {
+      navMenu.classList.remove('active');
+      responsiveLinks.style.display = 'none';
+    }
+  });
+
+  // Agregamos un event listener para cerrar el menú si se hace clic fuera de él
+  document.addEventListener('click', (event) => {
+    const navMenu = document.querySelector('.nav-links');
+    const responsiveLinks = document.querySelector('.responsive-links');
+
+    if (!event.target.matches('.toggler') && !event.target.closest('.nav-links') && !event.target.matches('.responsive-links')) {
+      navMenu.classList.remove('active');
+      responsiveLinks.style.display = 'none';
+    }
+  });
+
+  // Cerramos el menú cuando se carga la página
+  navMenu.classList.remove('active');
+  responsiveLinks.style.display = 'none';
 });
 
-const scroll = document.getElementById("scroll");
-
-scroll.addEventListener('click', () => {
-    document.querySelector(".get-started").scrollIntoView({ behavior: 'smooth' });
-})
 
 /*
 const openMenuBtn = document.querySelector('#openMenuBtn');
