@@ -2,41 +2,30 @@ document.addEventListener('DOMContentLoaded', function () {
   const toggler = document.querySelector('.toggler');
   const navMenu = document.querySelector('.nav-links');
   const responsiveLinks = document.querySelector('.responsive-links');
+  const closeBtn = document.querySelector('.close-btn');
 
   toggler.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    responsiveLinks.style.display = (responsiveLinks.style.display === 'flex') ? 'none' : 'flex';
+      navMenu.classList.toggle('active');
+      responsiveLinks.style.display = (responsiveLinks.style.display === 'flex') ? 'none' : 'flex';
+      closeBtn.classList.toggle('active'); /* Cambia para alternar la clase 'active' */
+  });
+
+  closeBtn.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+      responsiveLinks.style.display = 'none';
+      closeBtn.classList.remove('active');
   });
 
   // Evitamos que el clic en el botón propague el evento y cierre el menú
   toggler.addEventListener('click', (event) => {
-    event.stopPropagation();
-  });
-
-  // Agregamos un listener para cerrar el menú si se hace clic fuera de él
-  document.addEventListener('click', (event) => {
-    if (!event.target.matches('.toggler') && !event.target.closest('.nav-links') && !event.target.matches('.responsive-links')) {
-      navMenu.classList.remove('active');
-      responsiveLinks.style.display = 'none';
-    }
-  });
-
-  // Agregamos un event listener para cerrar el menú si se hace clic fuera de él
-  document.addEventListener('click', (event) => {
-    const navMenu = document.querySelector('.nav-links');
-    const responsiveLinks = document.querySelector('.responsive-links');
-
-    if (!event.target.matches('.toggler') && !event.target.closest('.nav-links') && !event.target.matches('.responsive-links')) {
-      navMenu.classList.remove('active');
-      responsiveLinks.style.display = 'none';
-    }
+      event.stopPropagation();
   });
 
   // Cerramos el menú cuando se carga la página
   navMenu.classList.remove('active');
   responsiveLinks.style.display = 'none';
+  closeBtn.style.display = 'none';
 });
-
 
 /*
 const openMenuBtn = document.querySelector('#openMenuBtn');
